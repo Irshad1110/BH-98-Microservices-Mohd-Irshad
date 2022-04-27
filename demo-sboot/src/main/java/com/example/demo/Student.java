@@ -63,8 +63,22 @@ public class Student {
 				+ mmarks + "]";
 	}
 	
-	public int getTotal() {
-		return cmarks+mmarks+pmarks;
+	public String getGrade() {
+		
+		int total = cmarks+mmarks+pmarks;
+		double avg = total/3;
+		String grade ="";
+		if(avg>=90 && avg<=100) {
+			grade="A";
+		}else if(avg >=80 &&avg<90){
+			grade="B";
+		}else if(avg >=70 &&avg<80){
+			grade="C";
+		}else if(avg<70){
+			grade="F";
+		}
+		return grade;
+		
 	}
 	
 
