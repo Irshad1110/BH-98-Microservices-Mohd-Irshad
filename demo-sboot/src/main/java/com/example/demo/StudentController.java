@@ -3,31 +3,45 @@ package com.example.demo;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController
 public class StudentController {
 	
 	
-private final StudentRepository studentRepository;
+private final StudentService studentService;
 	
-	StudentController(StudentRepository studentRepository){
-		this.studentRepository=studentRepository;
+	StudentController(StudentService studentService){
+		this.studentService=studentService;
 	}
 
 	@GetMapping("/students")
 	List<Student> getAll(){
-		return studentRepository.findAll();
+		return studentService.getAll();
 	}
 	
-//	@RequestMapping("/student/{name}/{id}/{cmarks}/{pmarks}/{mmarks}")
-//	String myStudents(@PathVariable String name, @PathVariable int id, @PathVariable int cmarks, @PathVariable int pmarks, @PathVariable int mmarks) {
-//		Student s = new Student(id,name,pmarks,cmarks,mmarks);
-//		String grade = s.getGrade();
-//		return "Hello, My name is " +name + " and my id is " + id + " and my grade is " + grade; 
-//	}
+	@GetMapping("/students/{id}")
+	Optional<Student> getStudentById(@PathVariable Long id){
+		return studentService.getStudentById(id);
+	}
+	
+	@PostMapping("/students")
+	Student newStudent(@RequestBody Student student){
+		return studentService.newStudent(student);
+	}
+	
+	@DeleteMapping("/students/{id}")
+	void deleteStudentById(@PathVariable Long id) {
+		studentService.deleteStudentsById(id);
+	}
+
 	
 	
 
